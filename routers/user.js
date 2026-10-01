@@ -4,18 +4,14 @@ const router = express.Router()
 
 router.post('/user', async (req, res) => {
     try {
-        const users = req.body
-        const createdusers = []
-        for (const data of users) {
-            const user = new User(data)
-            await user.save()
-            createdusers.push(user)
-        }
-        res.status(200).send(createdusers)
+        const user = new User(req.body)
+        await user.save()
+        res.status(200).send(user)
     } catch (error) {
         res.status(400).send(error)
     }
 })
+
 
 router.patch('/user/:id', async (req, res) => {
     try {
